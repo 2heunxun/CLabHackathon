@@ -7,13 +7,17 @@ import java.time.LocalDateTime;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "post_type")
 @Getter
 public class Post {
     @Id
     @GeneratedValue
     @Column(name="post_id")
     private long id;
+
+    @Enumerated(EnumType.STRING)
+    private PostType type;
+
+    //private User user;
 
     private String title;
     private String content;
