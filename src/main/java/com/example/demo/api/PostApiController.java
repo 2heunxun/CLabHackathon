@@ -3,6 +3,7 @@ package com.example.demo.api;
 import com.example.demo.domain.post.Post;
 import com.example.demo.dto.PostDTO;
 import com.example.demo.dto.PostUpdateRequest;
+import com.example.demo.dto.PostUpdateResponse;
 import com.example.demo.service.PostService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -49,12 +50,14 @@ public class PostApiController {
 
     //포스트 일부 수정
     @PutMapping("posts/{postId}")
-    public PostDTO editPost(
+    public PostUpdateResponse editPost(
             @PathVariable("postId") Long postId,
             @RequestBody PostUpdateRequest request) {
 
+        postService.update(postId,request);
+
         Post post = postService.findPostById(postId);
-        return new PostDTO(post);
+        return new PostUpdateResponse(post);
     }
 
 //    //포스트 전체 수정

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.post.Post;
+import com.example.demo.dto.PostUpdateRequest;
 import com.example.demo.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,11 @@ public class PostService {
     }
 
     public void delete(Post post) {
+    }
+
+    @Transactional
+    public void update(Long postId, PostUpdateRequest request) {
+        Post post = postRepository.findOne(postId);
+        post.update(request);
     }
 }

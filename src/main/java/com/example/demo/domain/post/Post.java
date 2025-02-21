@@ -1,5 +1,6 @@
 package com.example.demo.domain.post;
 
+import com.example.demo.dto.PostUpdateRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -23,5 +24,13 @@ public class Post {
     private String content;
     private int price;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String ThumbnailUrl;
+
+    public void update(PostUpdateRequest request) {
+        this.title = request.getTitle();
+        this.content = request.getContent();
+        this.price = request.getPrice();
+        this.updatedAt = LocalDateTime.now();
+    }
 }
