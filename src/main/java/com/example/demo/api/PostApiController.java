@@ -4,8 +4,8 @@ import com.example.demo.domain.post.Post;
 import com.example.demo.dto.PostDTO;
 import com.example.demo.dto.PostUpdateRequest;
 import com.example.demo.dto.PostUpdateResponse;
+import com.example.demo.dto.SimplePostDTO;
 import com.example.demo.service.PostService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,17 +28,6 @@ public class PostApiController {
                 .map(o -> new SimplePostDTO(o))
                 .collect(toList());
         return result;
-    }
-
-    @Data
-    public static class SimplePostDTO {
-        private String title;
-        private int price;
-
-        public SimplePostDTO(Post post) {
-            this.title = post.getTitle();
-            this.price = post.getPrice();
-        }
     }
 
     //포스트 상세 조회

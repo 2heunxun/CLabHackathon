@@ -13,7 +13,7 @@ public class Post {
     @Id
     @GeneratedValue
     @Column(name="post_id")
-    private long id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private PostType type;
