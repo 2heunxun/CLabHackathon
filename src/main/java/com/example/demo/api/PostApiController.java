@@ -21,7 +21,7 @@ public class PostApiController {
     private final PostService postService;
 
     //포스트 전체 조회
-    @GetMapping("posts")
+    @GetMapping("api/post")
     public List<SimplePostDTO> getPosts() {
         List<Post> allPosts = postService.findAllPosts();
         List<SimplePostDTO> result = allPosts.stream()
@@ -31,14 +31,14 @@ public class PostApiController {
     }
 
     //포스트 상세 조회
-    @GetMapping("posts/{postId}/")
+    @GetMapping("api/post/{postId}/")
     public PostDTO post(@PathVariable("postId") Long postId) {
         Post post = postService.findPostById(postId);
         return new PostDTO(post);
     }
 
     //포스트 일부 수정
-    @PutMapping("posts/{postId}")
+    @PutMapping("api/post/{postId}")
     public PostUpdateResponse editPost(
             @PathVariable("postId") Long postId,
             @RequestBody PostUpdateRequest request) {
@@ -57,7 +57,7 @@ public class PostApiController {
 //    }
 
     //포스트 삭제
-    @DeleteMapping("posts/{postId}")
+    @DeleteMapping("api/post/{postId}")
     public void deletePost(@PathVariable("postId") Long postId, Model model) {
         Post post = postService.findPostById(postId);
         postService.delete(post);
