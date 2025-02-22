@@ -15,7 +15,9 @@
     </thead>
     <tbody>
     <tr th:each="post : ${allPosts}">
-        <td th:text="${post.title}">Sample Title</td>
+        <td>
+            <a th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}">Sample Title</a>
+        </td>
         <td th:text="${post.price}">0</td>
     </tr>
     </tbody>
