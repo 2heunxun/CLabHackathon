@@ -28,6 +28,7 @@ public class Post {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String ThumbnailUrl;
+    private boolean isDeleted;
 
     public Post(PostType type, String title, String content, int price) {
         this.type = type;
@@ -37,6 +38,7 @@ public class Post {
         this.ThumbnailUrl = "";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+        this.isDeleted = false;
     }
 
     protected Post() {
@@ -48,5 +50,9 @@ public class Post {
         this.content = request.getContent();
         this.price = request.getPrice();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void delete() {
+        this.isDeleted = true;
     }
 }

@@ -51,8 +51,7 @@ public class PostController {
                              @RequestParam("title") String title,
                              @RequestParam("content") String content,
                              @RequestParam("price") int price) {
-        Post post = new Post(type,title,content,price);
-        postService.save(post);
+        postService.save(type,title,content,price);
         return "redirect:/post";
     }
 
@@ -64,8 +63,6 @@ public class PostController {
             @RequestBody PostUpdateRequest request) {
 
         postService.update(postId,request);
-
-        Post post = postService.findPostById(postId);
         return "redirect:/post/" + postId;
     }
 
@@ -78,9 +75,8 @@ public class PostController {
 
     //포스트 삭제
     @DeleteMapping("/post/{postId}")
-    public String deletePost(@PathVariable("postId") Long postId, Model model) {
-        Post post = postService.findPostById(postId);
-        postService.delete(post);
+    public String deletePost(@PathVariable("postId") Long postId) {
+        postService.delete(postId);
         return "redirect:/post";
     }
 }

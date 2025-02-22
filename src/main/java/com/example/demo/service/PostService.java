@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.post.Post;
+import com.example.demo.domain.post.PostType;
 import com.example.demo.dto.PostUpdateRequest;
 import com.example.demo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +26,11 @@ public class PostService {
 
 
     @Transactional
-    public void delete(Post post) {
-
+    public void delete(Long postId) {
+        Post post = postRepository.findOne(postId);
+        if (post != null) {
+            post.delete();
+        }
     }
 
     @Transactional
@@ -36,7 +40,8 @@ public class PostService {
     }
 
     @Transactional
-    public void save(Post post) {
+    public void save(PostType type,String title,String content,int price) {
+        Post post = new Post(type,title,content,price);
         postRepository.save(post);
     }
 }
