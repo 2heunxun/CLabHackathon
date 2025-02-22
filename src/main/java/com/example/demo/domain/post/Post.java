@@ -2,6 +2,7 @@ package com.example.demo.domain.post;
 
 import com.example.demo.dto.PostUpdateRequest;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
+@AllArgsConstructor
 public class Post {
     @Id
     @GeneratedValue
@@ -26,6 +28,20 @@ public class Post {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String ThumbnailUrl;
+
+    public Post(PostType type, String title, String content, int price, String ThumbnailUrl) {
+        this.type = type;
+        this.title = title;
+        this.content = content;
+        this.price = price;
+        this.ThumbnailUrl = ThumbnailUrl;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    protected Post() {
+
+    }
 
     public void update(PostUpdateRequest request) {
         this.title = request.getTitle();

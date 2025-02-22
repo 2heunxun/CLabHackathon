@@ -22,15 +22,21 @@ public class PostService {
     public Post findPostById(Long id) {
         return postRepository.findOne(id);
     }
-    
+
 
     @Transactional
     public void delete(Post post) {
+
     }
 
     @Transactional
     public void update(Long postId, PostUpdateRequest request) {
         Post post = postRepository.findOne(postId);
         post.update(request);
+    }
+
+    @Transactional
+    public void save(Post post) {
+        postRepository.save(post);
     }
 }
