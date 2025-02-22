@@ -29,12 +29,12 @@ public class Post {
     private LocalDateTime updatedAt;
     private String ThumbnailUrl;
 
-    public Post(PostType type, String title, String content, int price, String ThumbnailUrl) {
+    public Post(PostType type, String title, String content, int price) {
         this.type = type;
         this.title = title;
         this.content = content;
         this.price = price;
-        this.ThumbnailUrl = ThumbnailUrl;
+        this.ThumbnailUrl = "";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

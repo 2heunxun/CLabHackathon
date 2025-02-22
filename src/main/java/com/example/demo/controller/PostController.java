@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.post.Post;
+import com.example.demo.domain.post.PostType;
 import com.example.demo.dto.PostUpdateRequest;
 import com.example.demo.dto.PostUpdateResponse;
 import com.example.demo.dto.SimplePostDTO;
@@ -41,8 +42,20 @@ public class PostController {
     public String getPost(@PathVariable Long postId, Model model) {
         Post post = postService.findPostById(postId);
         model.addAttribute("post", post);
-        return "post";
+        return "posts/post";
     }
+
+    //포스트 생성
+    @PostMapping("/post")
+    public String postCreate(@RequestParam("type") PostType type,
+                             @RequestParam("title") String title,
+                             @RequestParam("content") String content,
+                             @RequestParam("price") int price) {
+        Post post = new Post(type,title,content,price);
+        postService.save(post);
+        return "redirect:/post";
+    }
+
 
     //포스트 일부 수정
     @PutMapping("/post/{postId}")
