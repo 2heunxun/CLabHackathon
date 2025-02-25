@@ -1,7 +1,7 @@
-package com.example.demo.dto;
+package dto;
 
-import com.example.demo.domain.post.Post;
-import com.example.demo.domain.post.PostType;
+import post.Post;
+import post.PostType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;

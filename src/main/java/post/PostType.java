@@ -1,4 +1,4 @@
-package com.example.demo.domain.post;
+package post;
 
 public enum PostType {
     JOKBO,

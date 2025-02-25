@@ -1,11 +1,11 @@
-package com.example.demo.api;
+package api;
 
-import com.example.demo.domain.post.Post;
-import com.example.demo.dto.PostDTO;
-import com.example.demo.dto.PostUpdateRequest;
-import com.example.demo.dto.PostUpdateResponse;
-import com.example.demo.dto.SimplePostDTO;
-import com.example.demo.service.PostService;
+import post.Post;
+import dto.PostDTO;
+import dto.PostUpdateRequest;
+import dto.PostUpdateResponse;
+import dto.SimplePostDTO;
+import service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,8 +59,7 @@ public class PostApiController {
     //포스트 삭제
     @DeleteMapping("api/post/{postId}")
     public void deletePost(@PathVariable("postId") Long postId, Model model) {
-        Post post = postService.findPostById(postId);
-        postService.delete(post);
+        postService.delete(postId);
     }
 
 }

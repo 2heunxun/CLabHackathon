@@ -1,11 +1,10 @@
-package com.example.demo.controller;
+package controller;
 
-import com.example.demo.domain.post.Post;
-import com.example.demo.domain.post.PostType;
-import com.example.demo.dto.PostUpdateRequest;
-import com.example.demo.dto.PostUpdateResponse;
-import com.example.demo.dto.SimplePostDTO;
-import com.example.demo.service.PostService;
+import post.Post;
+import post.PostType;
+import dto.PostUpdateRequest;
+import dto.SimplePostDTO;
+import service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,13 +54,20 @@ public class PostController {
         return "redirect:/post";
     }
 
+    //포스트 수정 폼
+    @GetMapping("/post/editform/{postId}")
+    public String editPostForm(@PathVariable Long postId, Model model) {
+        Post post = postService.findPostById(postId);
+        model.addAttribute("post", post);
+        return "posts/editPostForm";  // 수정 폼으로 이동
+    }
+
 
     //포스트 일부 수정
     @PutMapping("/post/{postId}")
-    public String editPost(
+    public String updatePost(
             @PathVariable("postId") Long postId,
-            @RequestBody PostUpdateRequest request) {
-
+            @ModelAttribute("post") PostUpdateRequest request) {
         postService.update(postId,request);
         return "redirect:/post/" + postId;
     }

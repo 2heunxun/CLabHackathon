@@ -1,9 +1,9 @@
-package com.example.demo.service;
+package service;
 
-import com.example.demo.domain.post.Post;
-import com.example.demo.domain.post.PostType;
-import com.example.demo.dto.PostUpdateRequest;
-import com.example.demo.repository.PostRepository;
+import post.Post;
+import post.PostType;
+import dto.PostUpdateRequest;
+import repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

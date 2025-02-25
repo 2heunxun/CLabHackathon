@@ -1,6 +1,6 @@
-package com.example.demo.dto;
+package dto;
 
-import com.example.demo.domain.post.Post;
+import post.Post;
 import lombok.Data;
 
 @Data

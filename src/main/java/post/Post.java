@@ -1,6 +1,6 @@
-package com.example.demo.domain.post;
+package post;
 
-import com.example.demo.dto.PostUpdateRequest;
+import dto.PostUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

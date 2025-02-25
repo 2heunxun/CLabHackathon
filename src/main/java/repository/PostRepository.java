@@ -1,7 +1,7 @@
-package com.example.demo.repository;
+package repository;
 
-import com.example.demo.domain.post.Post;
-import com.example.demo.domain.post.PostType;
+import post.Post;
+import post.PostType;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -40,5 +40,7 @@ public class PostRepository{
                 .setParameter("content","%" + content + "%")
                 .getResultList();
     }
+
+
 
 }
