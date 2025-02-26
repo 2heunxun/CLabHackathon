@@ -1,13 +1,18 @@
-package Controller;
+package com.example.demo.Controller;
 
-import domain.post.Post;
-import dto.PostUpdateRequest;
-import dto.SimplePostDTO;
+import com.example.demo.domain.Member;
+import com.example.demo.domain.post.Post;
+import com.example.demo.dto.PostRequestDTO;
+import com.example.demo.dto.PostResponseDTO;
+import com.example.demo.dto.PostUpdateRequest;
+import com.example.demo.dto.SimplePostDTO;
 import org.springframework.http.ResponseEntity;
-import service.PostService;
+import com.example.demo.service.MemberService;
+import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,16 +23,32 @@ import java.util.stream.Collectors;
 public class PostController {
 
     private final PostService postService;
+    private final MemberService memberService;
 
     //포스트 생성
-    @PostMapping()
-    public ResponseEntity<Post> postCreate(@RequestBody Post post) {
+    @PostMapping
+    public ResponseEntity<PostResponseDTO> postCreate(@RequestBody PostRequestDTO request) {
+        Optional<Member> author = memberService.findByUserId(request.getAuthorId());
+
+        Post post = Post.builder()
+                .type(request.getType())
+                .author(author.orElse(null))
+                .title(request.getTitle())
+                .content(request.getContent())
+                .price(request.getPrice())
+                .thumbnailUrl("")
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .isDeleted(false)
+                .build();
+
         Post savedPost = postService.save(post);
-        return ResponseEntity.ok(savedPost);
+
+        return ResponseEntity.ok(new PostResponseDTO(savedPost));
     }
 
     //포스트 리스트 조회
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<SimplePostDTO>> getPostList() {
         List<Post> allPosts = postService.findAllPosts();
         System.out.println(allPosts.size());

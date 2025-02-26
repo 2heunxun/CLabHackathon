@@ -1,7 +1,7 @@
-package dto;
+package com.example.demo.dto;
 
-import domain.post.Post;
-import domain.post.PostType;
+import com.example.demo.domain.post.Post;
+import com.example.demo.domain.post.PostType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
@@ -9,25 +9,27 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class PostDTO {
+public class PostResponseDTO {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
-    //private String userName;
+    private String userName;
 
     private String title;
     private String content;
     private int price;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String ThumbnailUrl;
 
-    public PostDTO(Post post) {
+    public PostResponseDTO(Post post) {
         this.type = post.getType();
-        //this.userName = post.getUser().getName();
+        this.userName = post.getAuthor().getNickname();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.price = post.getPrice();
         this.createdAt = post.getCreatedAt();
+        this.updatedAt = post.getUpdatedAt();
         this.ThumbnailUrl = post.getThumbnailUrl();
     }
 }

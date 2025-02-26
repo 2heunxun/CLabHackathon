@@ -1,7 +1,7 @@
-package domain.post;
+package com.example.demo.domain.post;
 
-import domain.Member;
-import dto.PostUpdateRequest;
+import com.example.demo.domain.Member;
+import com.example.demo.dto.PostUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +26,8 @@ public class Post {
     @Column(nullable = false)
     private PostType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false,name = "user_id")
     private Member author;
 
     @Column(nullable = false)
@@ -42,17 +43,6 @@ public class Post {
     private LocalDateTime updatedAt;
     private String thumbnailUrl;
     private boolean isDeleted;
-
-    public Post(PostType type, String title, String content, int price) {
-        this.type = type;
-        this.title = title;
-        this.content = content;
-        this.price = price;
-        this.thumbnailUrl = "";
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        this.isDeleted = false;
-    }
 
     public void update(PostUpdateRequest request) {
         this.title = request.getTitle();
