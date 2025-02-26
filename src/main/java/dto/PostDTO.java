@@ -1,7 +1,7 @@
 package dto;
 
-import post.Post;
-import post.PostType;
+import domain.post.Post;
+import domain.post.PostType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;

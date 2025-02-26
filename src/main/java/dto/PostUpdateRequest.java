@@ -1,6 +1,6 @@
 package dto;
 
-import post.Post;
+import domain.post.Post;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

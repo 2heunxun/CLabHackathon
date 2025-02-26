@@ -95,10 +95,10 @@
 
 <div class="buttons">
     <!-- 수정 버튼 -->
-    <a th:href="@{/post/editform/{postId}(postId=${post.id})}" class="btn edit-btn">수정</a>
+    <a th:href="@{/domain/post/editform/{postId}(postId=${post.id})}" class="btn edit-btn">수정</a>
 
     <!-- 삭제 버튼 -->
-    <form th:action="@{/post/{postId}(postId=${post.id})}" method="post"
+    <form th:action="@{/domain/post/{postId}(postId=${post.id})}" method="post"
           onsubmit="return confirm('정말로 삭제하시겠습니까?');">
         <input type="hidden" name="_method" value="delete"/>
         <button type="submit" class="btn delete-btn">삭제</button>
