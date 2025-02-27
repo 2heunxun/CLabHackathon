@@ -49,9 +49,12 @@ public class PostController {
 
     //포스트 리스트 조회
     @GetMapping
-    public ResponseEntity<List<SimplePostDTO>> getPostList() {
-        List<Post> allPosts = postService.findAllPosts();
-        System.out.println(allPosts.size());
+    public ResponseEntity<List<SimplePostDTO>> getPostList(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false, defaultValue = "1")int page) {
+
+        List<Post> allPosts = postService.findAllPosts(type,keyword,page);
         List<SimplePostDTO> result = allPosts.stream()
                 .map(SimplePostDTO::new)
                 .collect(Collectors.toList());
