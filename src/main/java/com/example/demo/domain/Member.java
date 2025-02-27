@@ -1,10 +1,14 @@
-package domain;
+package com.example.demo.domain;
 
+import com.example.demo.domain.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +23,7 @@ public class Member{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId; // member 구분 아이디
 
-    @Column(unique=true, nullable=false, length = 20)
+    @Column(unique=true, nullable=false, length = 20, name = "user_id")
     private String userId; // 아이디
 
     @Column(nullable=false)
@@ -33,5 +37,6 @@ public class Member{
 
     @Column(unique=true, nullable=false)
     private String messageId; //카카오톡 아이디
+
 
 }

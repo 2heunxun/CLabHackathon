@@ -1,20 +1,20 @@
-package service;
+package com.example.demo.service;
 
-import domain.Member;
+import com.example.demo.domain.Member;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import repository.MemberRepository;
+import com.example.demo.repository.MemberRepository;
 
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MemberService {
 
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     //Create
     public Member saveMember(Member member){
@@ -28,7 +28,7 @@ public class MemberService {
 
     //Delete
     public void deleteMember(Long memberId){
-        memberRepository.delete(memberId);
+        memberRepository.deleteById(memberId);
     }
 
     @Transactional //카카오 아이디 변경

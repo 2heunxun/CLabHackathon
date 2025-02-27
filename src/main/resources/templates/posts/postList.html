@@ -16,7 +16,7 @@
     <tbody>
     <tr th:each="post : ${allPosts}">
         <td>
-            <a th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}">Sample Title</a>
+            <a th:href="@{/com/example/demo/domain/post/{postId}(postId=${post.id})}" th:text="${post.title}">Sample Title</a>
         </td>
         <td th:text="${post.price}">0</td>
     </tr>

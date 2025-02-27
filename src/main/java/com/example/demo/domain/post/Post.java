@@ -1,16 +1,21 @@
-package post;
+package com.example.demo.domain.post;
 
-import dto.PostUpdateRequest;
+import com.example.demo.domain.Member;
+import com.example.demo.dto.PostUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Post {
     @Id
     @GeneratedValue
@@ -18,32 +23,26 @@ public class Post {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PostType type;
 
-    //private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false,name = "user_id")
+    private Member author;
 
-    private String title;
-    private String content;
-    private int price;
+    @Column(nullable = false)
+    private String title; //제목
+
+    @Column(nullable = false)
+    private String content; //내용
+
+    @Column(nullable = false)
+    private int price; //가격
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String ThumbnailUrl;
+    private String thumbnailUrl;
     private boolean isDeleted;
-
-    public Post(PostType type, String title, String content, int price) {
-        this.type = type;
-        this.title = title;
-        this.content = content;
-        this.price = price;
-        this.ThumbnailUrl = "";
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        this.isDeleted = false;
-    }
-
-    protected Post() {
-
-    }
 
     public void update(PostUpdateRequest request) {
         this.title = request.getTitle();

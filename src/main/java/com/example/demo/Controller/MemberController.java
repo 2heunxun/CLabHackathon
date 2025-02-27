@@ -1,10 +1,10 @@
-package Controller;
+package com.example.demo.Controller;
 
-import domain.Member;
+import com.example.demo.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.MemberService;
+import com.example.demo.service.MemberService;
 
 import java.util.Optional;
 
