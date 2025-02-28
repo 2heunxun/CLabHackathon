@@ -54,4 +54,8 @@ public class Post {
     public void delete() {
         this.isDeleted = true;
     }
+
+    public void updatePostUrl(String uuid) {
+        this.thumbnailUrl = uuid;
+    }
 }

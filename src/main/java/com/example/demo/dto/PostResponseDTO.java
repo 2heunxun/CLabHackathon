@@ -20,7 +20,7 @@ public class PostResponseDTO {
     private int price;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String ThumbnailUrl;
+    private String thumbnailUrl;
 
     public PostResponseDTO(Post post) {
         this.type = post.getType();
@@ -30,6 +30,6 @@ public class PostResponseDTO {
         this.price = post.getPrice();
         this.createdAt = post.getCreatedAt();
         this.updatedAt = post.getUpdatedAt();
-        this.ThumbnailUrl = post.getThumbnailUrl();
+        this.thumbnailUrl = post.getThumbnailUrl();
     }
 }
