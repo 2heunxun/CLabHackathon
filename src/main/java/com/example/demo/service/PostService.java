@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,8 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final ImageService imageService;
+
     public List<Post> findAllPosts() {
         return postRepository.findAll();
     }
@@ -51,10 +54,12 @@ public class PostService {
     }
 
     @Transactional
-    public Post update(Long postId, PostUpdateRequest request) {
+    public Post update(Long postId, PostUpdateRequest request) throws IOException {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다."));
+        Optional<String> imageUrl = imageService.uploadPostImage(request.getImage());
         post.update(request);
+        imageUrl.ifPresent(post::updatePostUrl);
         return post;
     }
 

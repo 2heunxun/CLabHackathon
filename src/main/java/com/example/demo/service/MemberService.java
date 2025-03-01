@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Member;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.example.demo.repository.MemberRepository;
