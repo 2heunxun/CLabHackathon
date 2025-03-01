@@ -23,10 +23,6 @@ public class PostService {
     private final PostRepository postRepository;
     private final ImageService imageService;
 
-    public List<Post> findAllPosts() {
-        return postRepository.findAll();
-    }
-
     public List<Post> findAllPosts(String type, String keyword, int page) {
         Specification<Post> spec = Specification.where(PostSpecification.hasType(type))
                 .and(PostSpecification.hasKeyword(keyword));
@@ -37,11 +33,6 @@ public class PostService {
 
     public Optional<Post> findPostById(Long id) {
         return postRepository.findById(id);
-    }
-
-
-    public List<Post> findAllPostsByPostType(String type) {
-        return postRepository.findByPostType(type);
     }
 
     @Transactional

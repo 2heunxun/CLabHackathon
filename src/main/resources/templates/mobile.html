@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -103,39 +103,27 @@
     </style>
 </head>
 <body>
-    <header>KCU 중고</header>
-    <div class="search-bar">
-        <input type="text" placeholder="교재를 검색하세요">
-    </div>
-    <div class="item-list">
+<header>KCU 중고</header>
+<div class="search-bar">
+    <input type="text" placeholder="교재를 검색하세요">
+</div>
+<div class="item-list">
+    <th:block th:each="post : ${allPosts}">
         <div class="item">
             <img src="https://via.placeholder.com/80" alt="책 이미지">
             <div class="item-info">
-                <a href="#" class="item-title">운영체제 개론</a>
-                <div class="item-price">15,000원</div>
+                <a href="#" class="item-title" th:text="${post.title}"></a>
+                <div class="item-price" th:text="${post.price} + '원'"></div>
             </div>
         </div>
-        <div class="item">
-            <img src="https://via.placeholder.com/80" alt="책 이미지">
-            <div class="item-info">
-                <a href="#" class="item-title">자료구조와 알고리즘</a>
-                <div class="item-price">20,000원</div>
-            </div>
-        </div>
-        <div class="item">
-            <img src="https://via.placeholder.com/80" alt="책 이미지">
-            <div class="item-info">
-                <a href="#" class="item-title">데이터베이스 시스템</a>
-                <div class="item-price">18,000원</div>
-            </div>
-        </div>
-    </div>
-    <div class="floating-button">+</div>
-    <div class="bottom-nav">
-        <a href="mobile.html">🏠 홈</a>
-        <a href="post.html">📢 등록</a>
-        <a href="chat.html">💬 채팅</a>
-        <a href="mypage.html">👤 마이페이지</a>
-    </div>
+    </th:block>
+</div>
+<div class="floating-button">+</div>
+<div class="bottom-nav">
+    <a href="mobile.html">🏠 홈</a>
+    <a href="post.html">📢 등록</a>
+    <a href="chat.html">💬 채팅</a>
+    <a href="mypage.html">👤 마이페이지</a>
+</div>
 </body>
 </html>
