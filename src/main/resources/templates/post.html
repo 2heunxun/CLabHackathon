@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교재 등록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+        header {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .image-upload {
+            width: 100px;
+            height: 100px;
+            background: #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+        .input-group input, .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            background: #333;
+            color: white;
+        }
+        .transaction-options {
+            display: flex;
+            gap: 10px;
+        }
+        .transaction-options button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .post {
+            background: #333;
+            color : white;
+            border : none;
+        }
+        .sell-btn {
+            background: #ff7f00;
+            color: white;
+        }
+        .donate-btn {
+            background: #007bff;
+            color: white;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff7f00;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: #1e1e1e;
+            padding: 10px 0;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>KGU 중고</header>
+    <div class="container">
+        <div class="image-upload">
+            <button class ="post">사진 등록</button>
+        </div>
+        <div class="input-group">
+            <label for="title">제목</label>
+            <input type="text" id="title" placeholder="제목을 입력하세요">
+        </div>
+        <div class="input-group">
+            <label>거래 방식</label>
+            <div class="transaction-options">
+                <button class="sell-btn">판매하기</button>
+                <button class="donate-btn">나눔하기</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <input type="text" placeholder="₩ 가격을 입력하세요">
+        </div>
+        <div class="input-group">
+            <textarea rows="4" placeholder="자세한 설명"></textarea>
+        </div>
+        <button class="submit-btn">작성 완료</button>
+    </div>
+    <div class="bottom-nav">
+        <a href="mobile.html">🏠 홈</a>
+        <a href="post.html">📢 등록</a>
+        <a href="chat.html">💬 채팅</a>
+        <a href="mypage.html">👤 마이페이지</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채팅</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+        header {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .chat-list {
+            list-style: none;
+            padding: 0;
+        }
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #1e1e1e;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .chat-item img, .chat-item .name {
+            cursor: pointer;
+        }
+        .chat-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .chat-item .chat-info {
+            flex: 1;
+        }
+        .chat-item .chat-info .name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .chat-item .chat-info .message {
+            font-size: 0.9em;
+            color: #bbb;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: #1e1e1e;
+            padding: 10px 0;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function openChat() {
+            window.location.href = 'personal_chat.html';
+        }
+    </script>
+</head>
+<body>
+    <header>채팅</header>
+    <div class="container">
+        <ul class="chat-list">
+            <li class="chat-item">
+                <img src="https://via.placeholder.com/50" alt="Profile" onclick="openChat()">
+                <div class="chat-info">
+                    <div class="name" onclick="openChat()">사용자1</div>
+                    <div class="message">안녕하세요!</div>
+                </div>
+            </li>
+            <li class="chat-item">
+                <img src="https://via.placeholder.com/50" alt="Profile" onclick="openChat()">
+                <div class="chat-info">
+                    <div class="name" onclick="openChat()">사용자2</div>
+                    <div class="message">거래 가능할까요?</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="bottom-nav">
+        <a href="mobile.html">🏠 홈</a>
+        <a href="post.html">📢 등록</a>
+        <a href="chat.html">💬 채팅</a>
+        <a href="mypage.html">👤 마이페이지</a>
+    </div>
+</body>
+</html>

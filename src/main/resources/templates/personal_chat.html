@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인 채팅</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+        header {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 10px;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+        .sent {
+            background: #007bff;
+            align-self: flex-end;
+        }
+        .received {
+            background: #444;
+            align-self: flex-start;
+        }
+        .input-box {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: #1e1e1e;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .input-box input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        .input-box button {
+            padding: 10px;
+            background: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>개인 채팅</header>
+    <div class="container">
+        <div class="chat-box">
+            <div class="message received">네고좀요</div>
+            <div class="message sent">싫어요요</div>
+        </div>
+    </div>
+    <div class="input-box">
+        <input type="text" placeholder="메시지를 입력하세요...">
+        <button>전송</button>
+    </div>
+</body>
+</html>
