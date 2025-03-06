@@ -16,4 +16,5 @@ public interface PostRepository extends JpaRepository<Post, Long>, JpaSpecificat
 
     @Query("select p from Post p where p.type = :type")
     List<Post> findByPostType(String type);
+
 }

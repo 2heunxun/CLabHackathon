@@ -5,6 +5,7 @@ import com.example.demo.domain.post.PostSpecification;
 import com.example.demo.dto.PostUpdateRequest;
 import com.example.demo.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,12 +24,12 @@ public class PostService {
     private final PostRepository postRepository;
     private final ImageService imageService;
 
-    public List<Post> findAllPosts(String type, String keyword, int page) {
+    public Page<Post> findAllPosts(String type, String keyword, int page) {
         Specification<Post> spec = Specification.where(PostSpecification.hasType(type))
                 .and(PostSpecification.hasKeyword(keyword));
 
-        Pageable pageable = PageRequest.of(page, 10);
-        return postRepository.findAll(spec, pageable).getContent();
+        Pageable pageable = PageRequest.of(page-1, 10);
+        return postRepository.findAll(spec, pageable);
     }
 
     public Optional<Post> findPostById(Long id) {

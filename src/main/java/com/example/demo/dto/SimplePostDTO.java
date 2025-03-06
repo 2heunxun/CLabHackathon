@@ -8,10 +8,12 @@ public class SimplePostDTO {
     private Long id;
     private String title;
     private int price;
+    private String thumbnailUrl;
 
     public SimplePostDTO(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.price = post.getPrice();
+        this.thumbnailUrl = post.getThumbnailUrl();
     }
 }
