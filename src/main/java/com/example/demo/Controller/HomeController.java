@@ -1,8 +1,10 @@
 package com.example.demo.Controller;
 
+import com.example.demo.domain.Member;
 import com.example.demo.domain.post.Post;
 import com.example.demo.dto.PostRequestDTO;
 import com.example.demo.dto.SimplePostDTO;
+import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class HomeController {
 
     private final PostService postService;
+    private final MemberService memberService;
 
     @GetMapping
     public String getPostList(
@@ -40,10 +44,14 @@ public class HomeController {
 
     @GetMapping("/post")
     public String createPost(Model model) {
-        //현재 로그인한 회원의 정보를 가져오는 로직 추가 후 살릴 예정입니다.
-        //model.addAttribute("postDto", new PostRequestDTO());
-        //return "createPost";
-        return "";
+
+        //로그인한 유저를 넣어주는 코드가 필요합니다.
+        // 테스트가 불가능해 관련한 코드가 추가 되면 createPost쪽 추가 수정 하겠습니다.
+        //Member member = memberService.findByUserId();
+        Optional<Member> member = memberService.findByUserId("test123");
+        model.addAttribute("member", member.orElse(null));
+        model.addAttribute("postDto", new PostRequestDTO());
+        return "createPost";
     }
 
     @PostMapping("/post")
