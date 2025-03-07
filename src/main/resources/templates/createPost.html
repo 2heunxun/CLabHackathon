@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교재 등록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+        header {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .upload-button {
+            width: 200px;
+            height: 100px;
+            background: #333;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+        .upload-button img {
+            width: 200px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+            position: absolute;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            background: #333;
+            color: white;
+        }
+
+        .input-group textarea {
+            resize: none;
+            height: 100px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff7f00;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background: #1e1e1e;
+            padding: 10px 0;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>KGU 중고</header>
+<div class="container">
+    <form th:action="@{/post}" th:object="${postDto}" method="post" enctype="multipart/form-data">
+        <input class="member-id" th:value="${member}" hidden>
+        <div class="input-group">
+            <label>이미지 업로드</label>
+            <div class="upload-button">선택된 파일 없음</div>
+            <input class="real-upload-button" type="file" th:field="*{thumbnailImage}" accept="image/*" required onchange="setThumbnail(event)" style="display:none">
+        </div>
+        <div class="input-group">
+            <label th:for="title">제목</label>
+            <input type="text" th:field="*{title}" placeholder="제목을 입력하세요" required>
+        </div>
+        <div class="input-group">
+            <label th:for="tag">태그</label>
+            <select th:field="*{type}" required>
+                <option value="BOOK">BOOK</option>
+                <option value="JOKBO">JOKBO</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label th:for="price">가격 (₩)</label>
+            <input type="text" th:field="*{price}" placeholder="₩ 가격을 입력하세요" required>
+        </div>
+        <div class="input-group">
+            <label th:for="content">설명</label>
+            <textarea th:field="*{content}" rows="4" placeholder="자세한 설명" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">작성 완료</button>
+    </form>
+</div>
+<div class="bottom-nav">
+    <a href="">🏠 홈</a>
+    <a href="/post">📢 등록</a>
+    <a href="/chat">💬 채팅</a>
+    <a href="/mypage">👤 마이페이지</a>
+</div>
+</body>
+
+<script type="text/javascript">
+
+    const uploadButton = document.querySelector('.upload-button');
+    const realUploadButton = document.querySelector('.real-upload-button');
+
+    uploadButton.addEventListener('click', () =>realUploadButton.click());
+
+
+    function setThumbnail(event) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            var img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            document.querySelector(".upload-button").appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+</html>

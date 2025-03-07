@@ -7,6 +7,7 @@ import com.example.demo.dto.PostResponseDTO;
 import com.example.demo.dto.PostUpdateRequest;
 import com.example.demo.dto.SimplePostDTO;
 import com.example.demo.service.ImageService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
@@ -58,8 +59,8 @@ public class PostController {
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "0")int page) {
 
-        List<Post> allPosts = postService.findAllPosts(type,keyword,page);
-        List<SimplePostDTO> result = allPosts.stream()
+        Page<Post> allPosts = postService.findAllPosts(type,keyword,page);
+        List<SimplePostDTO> result = allPosts.getContent().stream()
                 .map(SimplePostDTO::new)
                 .collect(Collectors.toList());
 
