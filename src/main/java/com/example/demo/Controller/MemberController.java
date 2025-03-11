@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.domain.Member;
+import com.example.demo.domain.MemberResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +16,24 @@ public class MemberController {
     private final MemberService memberService;
 
     //Create
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<Member> createMember(@RequestBody Member member) {
         Member savedMember = memberService.saveMember(member);
         return ResponseEntity.ok(savedMember);
     }
 
     //Research
+    // 수정필요 -> 반환에 대한 DTO 생성후 비밀번호를 제외한 반환이 필요 ! -> 보안상 문제가 발생
     @GetMapping("/{userId}")
-    public ResponseEntity<Member> getMember(@PathVariable String userId) {
+    public ResponseEntity<MemberResponseDTO> getMember(@PathVariable String userId) {
         Optional<Member> member = memberService.findByUserId(userId);
-        return member.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return member.map(m -> ResponseEntity.ok(new MemberResponseDTO(
+                m.getMemberId(),
+                m.getUserId(),
+                m.getNickname(),
+                m.getUserProfile(),
+                m.getMessageId()
+        ))).orElseGet(()-> ResponseEntity.notFound().build());
     }
 
     //Delete
