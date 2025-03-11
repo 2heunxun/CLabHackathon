@@ -16,11 +16,6 @@ public class MemberController {
     private final MemberService memberService;
 
     //Create
-    @PostMapping("")
-    public ResponseEntity<Member> createMember(@RequestBody Member member) {
-        Member savedMember = memberService.saveMember(member);
-        return ResponseEntity.ok(savedMember);
-    }
 
     //Research
     // 수정필요 -> 반환에 대한 DTO 생성후 비밀번호를 제외한 반환이 필요 ! -> 보안상 문제가 발생

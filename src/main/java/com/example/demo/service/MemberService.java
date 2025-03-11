@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.Member;
 import com.example.demo.dto.LoginDTO;
+import com.example.demo.dto.RegisterDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,16 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public Member registerMember(RegisterDTO registerDTO) {
+        Member member = Member.builder()
+                .userId(registerDTO.getUserId())
+                .password(registerDTO.getPassword())
+                .nickname(registerDTO.getNickname())
+                .messageId(registerDTO.getMessageId())
+                .build();
+
+        return memberRepository.save(member);
+    }
     //Research
     public Optional<Member> findByUserId(String userId){
         return memberRepository.findByUserId(userId);
