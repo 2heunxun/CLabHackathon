@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Member;
+import com.example.demo.dto.LoginDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,5 +45,11 @@ public class MemberService {
                         .messageId(newMessageId)// 변경
                         .build()
         );
+    }
+
+
+    public Optional<Member> login(LoginDTO loginDTO) {
+        return memberRepository.findByUserId(loginDTO.getUserId())
+                .filter(member -> member.getPassword().equals(loginDTO.getPassword())); // 비밀번호 검증
     }
 }
