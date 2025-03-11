@@ -38,10 +38,5 @@ public class MemberController {
         return ResponseEntity.noContent().build();
     }
 
-    //Update kakaoTalk 아이디
-    @PutMapping
-    public ResponseEntity<Member> updateMessageId(@PathVariable Long memberId, @RequestBody String newMessageId) {
-        Member updateMember= memberService.updateMessageId(memberId, newMessageId);
-        return ResponseEntity.ok(updateMember);
-    }
+
 }

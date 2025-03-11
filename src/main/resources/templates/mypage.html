@@ -35,7 +35,7 @@
             font-size: 1.5em;
             font-weight: bold;
         }
-        .logout-btn {
+        .logout-btn, .edit-btn {
             margin-top: 15px;
             padding: 10px;
             background-color: #ff7f00;
@@ -44,8 +44,9 @@
             color: white;
             font-size: 1em;
             cursor: pointer;
+            margin-right: 10px;
         }
-        .logout-btn:hover {
+        .logout-btn:hover, .edit-btn:hover {
             background-color: #e66c00;
         }
         .bottom-nav {
@@ -70,7 +71,9 @@
     <img class="profile-img" th:src="${session.loginMember.userProfile}" alt="프로필 이미지">
     <div class="nickname" th:text="${session.loginMember.nickname}"></div>
     <a href="/login/logout"><button class="logout-btn">로그아웃</button></a>
+    <a href="/mypage/edit"><button class="edit-btn">내 정보 수정</button></a>
 </div>
+
 <div class="bottom-nav">
     <a href="/mobile">🏠 홈</a>
     <a href="/post">📢 등록</a>

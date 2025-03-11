@@ -48,12 +48,10 @@ public class HomeController {
     public String createPost(HttpSession session, Model model) {
         // 세션에서 로그인한 사용자 정보 가져오기
         Member member = (Member) session.getAttribute("loginMember");
-
         // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
         if (member == null) {
             return "redirect:/login";
         }
-
         model.addAttribute("member", member);
         model.addAttribute("postDto", new PostRequestDTO());
         return "createPost";
