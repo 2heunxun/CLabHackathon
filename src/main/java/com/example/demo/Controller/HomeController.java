@@ -48,46 +48,6 @@ public class HomeController {
         return "mobile";
     }
 
-    @GetMapping("/post")
-    public String createPost(HttpSession session, Model model) {
-        // 세션에서 로그인한 사용자 정보 가져오기
-        Member member = (Member) session.getAttribute("loginMember");
-        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
-        if (member == null) {
-            return "redirect:/login";
-        }
-        model.addAttribute("member", member);
-        model.addAttribute("postDto", new PostRequestDTO());
-        return "createPost";
-    }
-
-
-    @PostMapping("/post")
-    public String createPost(HttpSession session, @ModelAttribute PostRequestDTO postRequestDTO) throws IOException {
-
-        Member author = (Member) session.getAttribute("loginMember");
-        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
-        if (author == null) {
-            return "redirect:/login";
-        }
-        Optional<String> image = imageService.uploadPostImage(postRequestDTO.getThumbnailImage());
-
-        Post post = Post.builder()
-                .type(postRequestDTO.getType())
-                .author(author)
-                .title(postRequestDTO.getTitle())
-                .content(postRequestDTO.getContent())
-                .price(postRequestDTO.getPrice())
-                .thumbnailUrl(image.orElse(null))
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .isDeleted(false)
-                .build();
-
-        Post savedPost = postService.save(post);
-        return "redirect:/mobile";
-    }
-
 
     @GetMapping("/mobile")
     public String goMobile(Model model) {

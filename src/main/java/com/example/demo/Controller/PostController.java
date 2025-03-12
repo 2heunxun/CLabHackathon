@@ -1,16 +1,12 @@
 package com.example.demo.Controller;
 
+
 import com.example.demo.domain.Member;
 import com.example.demo.domain.post.Post;
 import com.example.demo.dto.PostRequestDTO;
-import com.example.demo.dto.PostResponseDTO;
-import com.example.demo.dto.PostUpdateRequest;
-import com.example.demo.dto.SimplePostDTO;
 import com.example.demo.service.ImageService;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,31 +14,46 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/post")
+@RequestMapping("post")
 public class PostController {
 
-    private final PostService postService;
-    private final MemberService memberService;
     private final ImageService imageService;
+    private final PostService postService;
 
-    //포스트 생성
-    @PostMapping("")
-    public ResponseEntity<PostResponseDTO> postCreate(@ModelAttribute PostRequestDTO request) throws IOException {
-        Optional<Member> author = memberService.findByUserId(request.getAuthorId());
-        Optional<String> image = imageService.uploadPostImage(request.getThumbnailImage());
+    @GetMapping
+    public String createPost(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자 정보 가져오기
+        Member member = (Member) session.getAttribute("loginMember");
+        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+        if (member == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("member", member);
+        model.addAttribute("postDto", new PostRequestDTO());
+        return "createPost";
+    }
+
+
+    @PostMapping
+    public String createPost(HttpSession session, @ModelAttribute PostRequestDTO postRequestDTO) throws IOException {
+
+        Member author = (Member) session.getAttribute("loginMember");
+        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+        if (author == null) {
+            return "redirect:/login";
+        }
+        Optional<String> image = imageService.uploadPostImage(postRequestDTO.getThumbnailImage());
 
         Post post = Post.builder()
-                .type(request.getType())
-                .author(author.orElse(null))
-                .title(request.getTitle())
-                .content(request.getContent())
-                .price(request.getPrice())
+                .type(postRequestDTO.getType())
+                .author(author)
+                .title(postRequestDTO.getTitle())
+                .content(postRequestDTO.getContent())
+                .price(postRequestDTO.getPrice())
                 .thumbnailUrl(image.orElse(null))
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
@@ -50,66 +61,10 @@ public class PostController {
                 .build();
 
         Post savedPost = postService.save(post);
-
-        return ResponseEntity.ok(new PostResponseDTO(savedPost));
+        return "redirect:/mobile";
     }
 
-    //포스트 리스트 조회
-    @GetMapping
-    public ResponseEntity<List<SimplePostDTO>> getPostList(
-            @RequestParam(required = false) String type,
-            @RequestParam(required = false) String keyword,
-            @RequestParam(required = false, defaultValue = "0")int page) {
-
-        Page<Post> allPosts = postService.findAllPosts(type,keyword,page);
-        List<SimplePostDTO> result = allPosts.getContent().stream()
-                .map(SimplePostDTO::new)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(result);
-    }
-
-    //포스트 상세 조회
-    @GetMapping("/{postId}")
-    public ResponseEntity<PostResponseDTO> getPost(@PathVariable Long postId) {
-        Optional<Post> post = postService.findPostById(postId);
-        Optional<PostResponseDTO> postResponseDTO = post.map(PostResponseDTO::new);
-        return postResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    //포스트 수정 폼
-    @GetMapping("/editform/{postId}")
-    public ResponseEntity<PostResponseDTO> editPostForm(@PathVariable Long postId) {
-        Optional<Post> post = postService.findPostById(postId);
-        Optional<PostResponseDTO> postResponseDTO = post.map(PostResponseDTO::new);
-        return postResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());  // 수정 폼으로 이동
-    }
-
-
-    //포스트 일부 수정
-    @PutMapping("/{postId}")
-    public ResponseEntity<Post> updatePost(
-            @PathVariable("postId") Long postId,
-            @RequestBody PostUpdateRequest request) throws IOException {
-        Post updatePost = postService.update(postId,request);
-        return ResponseEntity.ok(updatePost);
-    }
-
-//    //포스트 전체 수정
-//    @PatchMapping("posts/{postId}")
-//    public PostDTO updatePost(@PathVariable("postId") Long postId, Model model) {
-//        Post post = postService.findPostById(postId);
-//        return new PostDTO(post);
-//    }
-
-    //포스트 삭제
-    @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable("postId") Long postId) {
-        postService.delete(postId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public String getProductDetail(@PathVariable Long id, Model model){
         Post post = postService.findPostById(id).orElseThrow(()->new RuntimeException("해당 포스트를 찾을 수 없음."));
         model.addAttribute("post", post);
