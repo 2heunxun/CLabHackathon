@@ -38,7 +38,6 @@ public class Post {
     private String content; //내용
 
     @Column(nullable = false)
-    @Size(max=2100000, min = 0)
     private int price; //가격
 
     private LocalDateTime createdAt;

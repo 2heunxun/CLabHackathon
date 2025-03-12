@@ -81,7 +81,6 @@
         <img th:src="${post.author.userProfile}" alt="판매자 프로필">
         <div>
             <div class="name" th:text="${post.author.nickname}">이름</div>
-            <!--<div class="location" th:text="${post.}">지역</div> -->
         </div>
     </div>
     <div class="product-details">
@@ -92,7 +91,7 @@
 
 
     <button id="chat-button" onclick="chat()">채팅하기</button>
-    <div id="chat-info" style="display: none;" th:text="'카카오톡 id '+ ${post.author.messageId}"></div>
+    <div id="chat-info" style="display: none;" th:text="'카카오톡 id: '+ ${post.author.messageId}"></div>
 </div>
 </body>
 

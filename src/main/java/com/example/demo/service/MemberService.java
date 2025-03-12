@@ -52,7 +52,7 @@ public class MemberService {
     public Member updateMember(Long memberId, UpdateMemberDTO updateDTO) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
-
+        String userProfile ="https://storage.googleapis.com/hackathon1jokbostore/KakaoTalk_20250312_184655252.png";
         // 모두 변경
         member = Member.builder()
                 .memberId(member.getMemberId()) // 기존 ID 유지
@@ -62,6 +62,7 @@ public class MemberService {
                         : member.getPassword()) // 비밀번호가 없으면 기존 비밀번호 유지
                 .nickname(updateDTO.getNickname()) // 새로운 닉네임
                 .messageId(updateDTO.getMessageId()) // 새로운 카카오톡 ID
+                .userProfile(userProfile)
                 .build();
 
         return memberRepository.save(member);

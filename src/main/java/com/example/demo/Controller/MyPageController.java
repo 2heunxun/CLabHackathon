@@ -4,6 +4,7 @@ import com.example.demo.domain.Member;
 import com.example.demo.dto.UpdateMemberDTO;
 import com.example.demo.service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/mypage")
 public class MyPageController {
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @GetMapping
     public String myPage(HttpSession session, Model model) {
@@ -41,7 +43,7 @@ public class MyPageController {
         // 세션 정보 업데이트
         session.setAttribute("loginMember", updatedMember);
 
-        return "redirect:"; // 수정 완료 후 마이페이지 이동
+        return "mypage"; // 수정 완료 후 마이페이지 이동
     }
 
     @GetMapping("/edit")
