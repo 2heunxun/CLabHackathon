@@ -40,7 +40,7 @@ public class ImageService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String fileUrl = "https://storage.cloud.google.com/" + bucketName + "/" + uuid;
+        String fileUrl = "https://storage.googleapis.google.com/" + bucketName + "/" + uuid;
         return fileUrl.describeConstable();
     }
 }
