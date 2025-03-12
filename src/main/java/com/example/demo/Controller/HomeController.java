@@ -6,6 +6,7 @@ import com.example.demo.dto.PostRequestDTO;
 import com.example.demo.dto.SimplePostDTO;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -43,16 +44,18 @@ public class HomeController {
     }
 
     @GetMapping("/post")
-    public String createPost(Model model) {
-
-        //로그인한 유저를 넣어주는 코드가 필요합니다.
-        // 테스트가 불가능해 관련한 코드가 추가 되면 createPost쪽 추가 수정 하겠습니다.
-        //Member member = memberService.findByUserId();
-        Optional<Member> member = memberService.findByUserId("test123");
-        model.addAttribute("member", member.orElse(null));
+    public String createPost(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자 정보 가져오기
+        Member member = (Member) session.getAttribute("loginMember");
+        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+        if (member == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("member", member);
         model.addAttribute("postDto", new PostRequestDTO());
         return "createPost";
     }
+
 
     @PostMapping("/post")
     public String createPost(@ModelAttribute PostRequestDTO postRequestDTO) {
@@ -60,4 +63,22 @@ public class HomeController {
     }
 
 
+    @GetMapping("/mobile")
+
+    public String goMobile(Model model) {
+
+        String type = null;
+        String keyword = null;
+        int page = 1;
+
+        Page<Post> allPosts = postService.findAllPosts(type,keyword,page);
+        List<SimplePostDTO> result = allPosts.stream()
+                .map(SimplePostDTO::new)
+                .collect(Collectors.toList());
+
+        model.addAttribute("allPosts", result);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", allPosts.getTotalPages());
+        return "mobile";
+    }
 }
