@@ -65,8 +65,18 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public String getProductDetail(@PathVariable Long id, Model model){
+    public String getProductDetail(HttpSession session,@PathVariable Long id, Model model){
+        Member author = (Member) session.getAttribute("loginMember");
+        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+        if (author == null) {
+            return "redirect:/login";
+        }
         Post post = postService.findPostById(id).orElseThrow(()->new RuntimeException("해당 포스트를 찾을 수 없음."));
+
+        Member user = (Member) session.getAttribute("loginMember");
+        // 로그인이 안 되어 있으면 로그인 페이지로 리다이렉트
+
+        model.addAttribute("isLoggedIn", user != null);
         model.addAttribute("post", post);
         return "product";
     }

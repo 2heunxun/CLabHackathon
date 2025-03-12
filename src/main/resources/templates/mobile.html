@@ -185,13 +185,11 @@
     <th:block th:each="post : ${allPosts}">
         <a th:href="@{/post/{id}(id=${post.id})}">
         <div class="item">
-
             <img th:src="${post.thumbnailUrl}" alt="책 이미지">
             <div class="item-info">
                 <a href="" class="item-title" th:text="${post.title}"></a>
                 <div class="item-price" th:text="${post.price} + '원'"></div>
             </div>
-
         </div>
         </a>
     </th:block>
