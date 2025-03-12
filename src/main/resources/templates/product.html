@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 상세</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .product-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .seller-info {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .seller-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .seller-info .name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .product-details {
+            margin-top: 15px;
+        }
+        .product-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .product-description {
+            margin-top: 10px;
+            font-size: 1em;
+            color: #bbb;
+        }
+        .product-price {
+            margin-top: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #ff9800;
+        }
+        .chat-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ff5722;
+            color: white;
+            font-size: 1.2em;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="product-image">
+        <img src="https://via.placeholder.com/600x400" alt="상품 이미지">
+    </div>
+    <div class="seller-info">
+        <img src="https://via.placeholder.com/50" alt="판매자 프로필">
+        <div>
+            <div class="name">이름</div>
+            <div class="location">지역</div>
+        </div>
+    </div>
+    <div class="product-details">
+        <div class="product-title">상품명</div>
+        <div class="product-description">상품 설명</div>
+        <div class="product-price" th:text="${post.price}"></div>
+    </div>
+    <button class="chat-button">채팅하기</button>
+</div>
+</body>
+</html>

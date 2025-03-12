@@ -38,4 +38,5 @@ public class Member{
     private String messageId; //카카오톡 아이디
 
 
+
 }
