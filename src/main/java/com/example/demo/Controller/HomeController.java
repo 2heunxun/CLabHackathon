@@ -65,7 +65,19 @@ public class HomeController {
 
 
     @GetMapping("/mobile")
-    public String goMobile() {
+    public String goMobile(Model model) {
+        String type = "";
+        String keyword = "";
+        int page = 1;
+
+        Page<Post> allPosts = postService.findAllPosts(type,keyword,page);
+        List<SimplePostDTO> result = allPosts.stream()
+                .map(SimplePostDTO::new)
+                .collect(Collectors.toList());
+
+        model.addAttribute("allPosts", result);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", allPosts.getTotalPages());
         return "mobile";
     }
 }
