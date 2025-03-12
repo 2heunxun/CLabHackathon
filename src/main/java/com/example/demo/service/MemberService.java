@@ -25,11 +25,15 @@ public class MemberService {
     }
 
     public Member registerMember(RegisterDTO registerDTO) {
+        // userProfile이 null이면 기본값을 설정
+        String userProfile ="https://storage.googleapis.com/hackathon1jokbostore/KakaoTalk_20250312_184655252.png";
+
         Member member = Member.builder()
                 .userId(registerDTO.getUserId())
                 .password(registerDTO.getPassword())
                 .nickname(registerDTO.getNickname())
                 .messageId(registerDTO.getMessageId())
+                .userProfile(userProfile) // 기본값을 적용
                 .build();
 
         return memberRepository.save(member);
