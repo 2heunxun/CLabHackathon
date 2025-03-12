@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Table(name="member")
-
 public class Member{
 
     @Id

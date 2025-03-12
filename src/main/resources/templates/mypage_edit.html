@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,46 +11,83 @@
             padding: 0;
             background-color: #121212;
             color: white;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            width: 90%;
-            max-width: 400px;
-            margin: 50px auto;
+            width: 100%;
+            max-width: 360px;
             padding: 20px;
             background: #1e1e1e;
             border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
+        h2 {
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
         }
         input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
             background: #2e2e2e;
             color: white;
+            box-sizing: border-box;
         }
         button {
-            background: #ff6600;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff6600;
             color: white;
+            font-size: 1.1em;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
         }
         button:hover {
-            background: #ff4500;
+            background-color: #ff4500;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>내 정보 수정</h2>
-        <form>
-            <input type="text" placeholder="이름" required>
-            <input type="email" placeholder="이메일" required>
-            <input type="password" placeholder="새 비밀번호" required>
-            <button type="submit">수정 완료</button>
-        </form>
-    </div>
+<div class="container">
+    <h2>내 정보 수정</h2>
+    <form th:action="@{/mypage/edit}" method="post">
+        <!-- 닉네임 변경 -->
+        <div class="input-group">
+            <label for="nickname">닉네임 변경</label>
+            <input type="text" id="nickname" name="nickname" th:value="${member.nickname}" required>
+        </div>
+
+        <!-- 카카오톡 아이디 변경 -->
+        <div class="input-group">
+            <label for="messageId">카카오톡 아이디 변경</label>
+            <input type="text" id="messageId" name="messageId" th:value="${member.messageId}" required>
+        </div>
+
+        <!-- 비밀번호 변경 -->
+        <div class="input-group">
+            <label for="password">새 비밀번호</label>
+            <input type="password" id="password" name="password" placeholder="새 비밀번호 입력" required>
+        </div>
+
+        <button type="submit">수정 완료</button>
+    </form>
+</div>
 </body>
 </html>

@@ -12,6 +12,7 @@ public class PostUpdateResponse {
     private String content;
     private int price;
     private LocalDateTime updatedDateTime;
+
     public PostUpdateResponse(Post post) {
         this.id = id;
         this.title = post.getTitle();

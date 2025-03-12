@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.domain.Member;
+import com.example.demo.domain.MemberResponseDTO;
 import com.example.demo.domain.post.Post;
 import com.example.demo.dto.PostRequestDTO;
 import com.example.demo.dto.SimplePostDTO;
@@ -64,21 +65,7 @@ public class HomeController {
 
 
     @GetMapping("/mobile")
-
-    public String goMobile(Model model) {
-
-        String type = null;
-        String keyword = null;
-        int page = 1;
-
-        Page<Post> allPosts = postService.findAllPosts(type,keyword,page);
-        List<SimplePostDTO> result = allPosts.stream()
-                .map(SimplePostDTO::new)
-                .collect(Collectors.toList());
-
-        model.addAttribute("allPosts", result);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", allPosts.getTotalPages());
+    public String goMobile() {
         return "mobile";
     }
 }
