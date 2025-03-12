@@ -3,6 +3,7 @@ package com.example.demo.domain.post;
 import com.example.demo.domain.Member;
 import com.example.demo.dto.PostUpdateRequest;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class Post {
     private String content; //내용
 
     @Column(nullable = false)
+    @Size(max=2100000, min = 0)
     private int price; //가격
 
     private LocalDateTime createdAt;
