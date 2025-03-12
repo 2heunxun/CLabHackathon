@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/post")
 public class PostController {
@@ -105,5 +107,12 @@ public class PostController {
     public ResponseEntity<Void> deletePost(@PathVariable("postId") Long postId) {
         postService.delete(postId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/product/{id}")
+    public String getProductDetail(@PathVariable Long id, Model model){
+        Post post = postService.findPostById(id).orElseThrow(()->new RuntimeException("해당 포스트를 찾을 수 없음."));
+        model.addAttribute("post", post);
+        return "product";
     }
 }
